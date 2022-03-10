@@ -52,8 +52,16 @@
             more exciting features in the future.
           </p>
           <v-btn elevation="2" v-on:click="showStuff">
-            Do Fun Stuff {{ message }}
+            Do Fun Stuff: {{ message }}
+            <span v-if="clickCount > 0">#{{ clickCount }}</span>
           </v-btn>
+
+          <ul id="list-of-clicks">
+            <li v-for="item in clickInfos">
+              Clicked '{{ item.text }}' at
+              {{ item.time.toLocaleTimeString('en-US') }}
+            </li>
+          </ul>
 
           <div class="text-xs-right">
             <em><small>&mdash; John Leider</small></em>
@@ -84,19 +92,34 @@
   </v-row>
 </template>
 
-<script>
-export default {
-  name: 'IndexPage',
-  data() {
-    return {
-      message: 'test',
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class IndexPage extends Vue {
+  message: string = 'Click Me'
+  clickInfos: EventInfo[] = []
+  clickCount: number = 0
+
+  showStuff($event: MouseEvent): void {
+    this.clickCount++
+    //alert('Clicked!')
+    if (!this.message.includes('again')) {
+      this.message += ' again'
     }
-  },
-  methods: {
-    showStuff: function () {
-      alert('This');
-      this.message += " Again";
-    },
-  },
+    this.clickInfos.push(
+      new EventInfo(($event.target as HTMLElement).innerText)
+    )
+  }
+}
+
+class EventInfo {
+  constructor(text: string) {
+    this.text = text
+  }
+
+  text: string
+  time: Date = new Date()
 }
 </script>
