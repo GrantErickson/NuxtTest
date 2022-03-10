@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col cols="12" sm="8" md="8">
       <v-card class="logo py-4 d-flex justify-center">
         <NuxtLogo />
         <VuetifyLogo />
@@ -14,7 +14,12 @@
             :disabled="buttonIsDisabled"
           >
             Do Fun Stuff: {{ message }}
-            <span v-if="clickCount > 0">#{{ clickCount }}</span>
+            <v-chip small v-if="clickCount > 0" color="blue" class="ma-2">
+              <v-avatar left>
+                <v-icon>mdi-checkbox-marked-circle</v-icon>
+              </v-avatar>
+              #{{ clickCount }}</v-chip
+            >
           </v-btn>
 
           <br />
@@ -28,8 +33,8 @@
                   {{ item.time.toLocaleTimeString('en-US') }}
                 </v-list-item>
                 <v-list-item v-if="clickInfos.length === 0"
-                  >Nothing Clicked Yet</v-list-item
-                >
+                  >Nothing Clicked Yet
+                </v-list-item>
               </v-list-item-group>
             </v-list>
           </v-card>
