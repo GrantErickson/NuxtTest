@@ -6,82 +6,37 @@
         <VuetifyLogo />
       </v-card>
       <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
+        <v-card-title class="headline"> Welcome to Click Demo </v-card-title>
         <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <v-btn elevation="2" v-on:click="showStuff">
+          <v-btn
+            elevation="2"
+            v-on:click="showStuff"
+            :disabled="buttonIsDisabled"
+          >
             Do Fun Stuff: {{ message }}
             <span v-if="clickCount > 0">#{{ clickCount }}</span>
           </v-btn>
 
-          <ul id="list-of-clicks">
-            <li v-for="item in clickInfos">
-              Clicked '{{ item.text }}' at
-              {{ item.time.toLocaleTimeString('en-US') }}
-            </li>
-          </ul>
-
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
           <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
+
+          <v-card>
+            <v-list id="list-of-clicks">
+              <v-subheader><h2>Clicks</h2></v-subheader>
+              <v-list-item-group>
+                <v-list-item v-for="item in clickInfos" v-bind:key="item.key">
+                  Clicked '{{ item.text }}' at
+                  {{ item.time.toLocaleTimeString('en-US') }}
+                </v-list-item>
+                <v-list-item v-if="clickInfos.length === 0"
+                  >Nothing Clicked Yet</v-list-item
+                >
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+
+          <br />
+
+          <v-btn v-on:click="reset">Reset</v-btn>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -101,6 +56,7 @@ export default class IndexPage extends Vue {
   message: string = 'Click Me'
   clickInfos: EventInfo[] = []
   clickCount: number = 0
+  buttonIsDisabled: boolean = false
 
   showStuff($event: MouseEvent): void {
     this.clickCount++
@@ -111,6 +67,15 @@ export default class IndexPage extends Vue {
     this.clickInfos.push(
       new EventInfo(($event.target as HTMLElement).innerText)
     )
+    // Make sure all the keys are unique.
+    this.buttonIsDisabled = true
+    setTimeout(() => (this.buttonIsDisabled = false), 1000)
+  }
+
+  reset(): void {
+    this.message = 'Click Me'
+    this.clickCount = 0
+    this.clickInfos.length = 0
   }
 }
 
@@ -121,5 +86,8 @@ class EventInfo {
 
   text: string
   time: Date = new Date()
+  get key(): string {
+    return this.time.toString()
+  }
 }
 </script>
