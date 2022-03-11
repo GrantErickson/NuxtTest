@@ -31,6 +31,14 @@
                 <v-list-item v-for="item in clickInfos" v-bind:key="item.key">
                   Clicked '{{ item.text }}' at
                   {{ item.time.toLocaleTimeString('en-US') }}
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    v-on:click="deleteItem(item)"
+                    elevation="5"
+                    color="warning"
+                    icon
+                    ><v-icon>mdi-close</v-icon></v-btn
+                  >
                 </v-list-item>
                 <v-list-item v-if="clickInfos.length === 0"
                   >Nothing Clicked Yet
@@ -81,6 +89,10 @@ export default class IndexPage extends Vue {
     this.message = 'Click Me'
     this.clickCount = 0
     this.clickInfos.length = 0
+  }
+
+  deleteItem(event: EventInfo) {
+    this.clickInfos.splice(this.clickInfos.indexOf(event), 1)
   }
 }
 
