@@ -28,18 +28,14 @@
             <v-list id="list-of-clicks">
               <v-subheader><h2>Clicks</h2></v-subheader>
               <v-list-item-group>
-                <v-list-item v-for="item in clickInfos" v-bind:key="item.key">
-                  Clicked '{{ item.text }}' at
-                  {{ item.time.toLocaleTimeString('en-US') }}
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    v-on:click="deleteItem(item)"
-                    elevation="5"
-                    color="warning"
-                    icon
-                    ><v-icon>mdi-close</v-icon></v-btn
-                  >
-                </v-list-item>
+                <click-info
+                  v-for="item in clickInfos"
+                  v-bind:key="item.key"
+                  v-bind:item="item"
+                  v-on:delete="deleteItem(item)"
+                >
+                </click-info>
+
                 <v-list-item v-if="clickInfos.length === 0"
                   >Nothing Clicked Yet
                 </v-list-item>
