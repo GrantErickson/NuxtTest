@@ -81,6 +81,11 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
+        {
+          icon: 'mdi-candy',
+          title: 'Joke',
+          to: '/joke',
+        },
       ],
       miniVariant: false,
       right: true,

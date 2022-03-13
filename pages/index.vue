@@ -4,6 +4,7 @@
       <v-card class="logo py-4 d-flex justify-center">
         <NuxtLogo />
         <VuetifyLogo />
+        <NuxtLink to="/joke"><v-btn>A Joke</v-btn></NuxtLink>
       </v-card>
       <v-card>
         <v-card-title class="headline"> Welcome to Click Demo </v-card-title>
