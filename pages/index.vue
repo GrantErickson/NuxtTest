@@ -50,7 +50,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
+          <v-btn color="accent" nuxt to="/inspire"> Continue </v-btn>
+          <v-spacer />
+          <v-btn color="primary" nuxt to="/home"> Wordle </v-btn>
+          <v-spacer />
         </v-card-actions>
       </v-card>
     </v-col>
