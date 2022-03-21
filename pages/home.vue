@@ -36,46 +36,8 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class IndexPage extends Vue {
-  message: string = 'Click Me'
-  clickInfos: EventInfo[] = []
-  clickCount: number = 0
-  buttonIsDisabled: boolean = false
-
-  showStuff($event: MouseEvent): void {
-    this.clickCount++
-    //alert('Clicked!')
-    if (!this.message.includes('again')) {
-      this.message += ' again'
-    }
-    this.clickInfos.push(
-      new EventInfo(($event.target as HTMLElement).innerText)
-    )
-    // Make sure all the keys are unique.
-    this.buttonIsDisabled = true
-    setTimeout(() => (this.buttonIsDisabled = false), 1000)
-  }
-
-  reset(): void {
-    this.message = 'Click Me'
-    this.clickCount = 0
-    this.clickInfos.length = 0
-  }
-
-  deleteItem(event: EventInfo) {
-    this.clickInfos.splice(this.clickInfos.indexOf(event), 1)
-  }
+export default class HomePage extends Vue {
+    
 }
 
-class EventInfo {
-  constructor(text: string) {
-    this.text = text
-  }
-
-  text: string
-  time: Date = new Date()
-  get key(): string {
-    return this.time.toString()
-  }
-}
 </script>
