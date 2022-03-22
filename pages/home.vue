@@ -7,7 +7,7 @@
         </v-card-title>
         <v-card-text>
           <div class="my-2">
-            <v-btn block elevation="2" color="primary" nuxt to="/daily">
+            <v-btn block elevation="2" color="primary" nuxt to="/wordle">
               Play Daily Game
               <v-spacer />
               <v-icon>mdi-arrow-right-bold-box-outline</v-icon>
@@ -36,8 +36,5 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class HomePage extends Vue {
-    
-}
-
+export default class HomePage extends Vue {}
 </script>

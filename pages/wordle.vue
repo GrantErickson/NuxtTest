@@ -20,8 +20,6 @@
 <v-divider>inset</v-divider>
 
         <v-card-text>
-          
-
           <v-row>
             <letter
               v-for="(letter, index) in word.letters"
