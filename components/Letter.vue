@@ -1,6 +1,7 @@
 <template>
   <v-col
     class="text-center text-h3 rounded-lg gradient mx-2"
+    v-on:click="clickItem()"
     :class="{
       info: letter.unknown,
       error: letter.wrong,
@@ -9,7 +10,6 @@
     }"
   >
     {{ letter.char }}
-    <div class="fill-height bottom-gradient"></div>
   </v-col>
 </template>
 
@@ -21,9 +21,10 @@ import { Letter } from '@/scripts/wordle'
 @Component
 export default class LetterComponent extends Vue {
   @Prop() letter!: Letter
+  @Prop() index!: number
 
-  deleteItem(): void {
-    this.$emit('delete')
+  clickItem(): void {
+    this.$emit('click', this.letter)
   }
 }
 </script>

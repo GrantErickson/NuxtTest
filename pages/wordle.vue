@@ -17,6 +17,7 @@
               <letter
                 v-for="(letter, index) in guess.letters"
                 :letter="letter"
+                :index="index"
                 :key="index"
               ></letter>
               <v-spacer />
@@ -30,6 +31,7 @@
               <letter
                 v-for="(letter, index) in word.letters"
                 :letter="letter"
+                :index="index"
                 :key="index"
               ></letter>
             </v-row>
