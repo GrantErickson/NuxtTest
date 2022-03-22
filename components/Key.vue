@@ -1,6 +1,7 @@
 <template>
   <v-col
-    class="text-center text-h3 rounded-lg gradient mx-2"
+    xs="1" xl="1"
+    class="text-center text-h4 rounded-lg gradient my-1"
     :class="{
       info: letter.unknown,
       error: letter.wrong,
@@ -19,13 +20,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Letter } from '@/scripts/wordle'
 
 @Component
-export default class LetterComponent extends Vue {
+export default class KeyComponent extends Vue {
   @Prop() letter!: Letter
-
-  deleteItem(): void {
-    this.$emit('delete')
-  }
 }
 </script>
 
-<style></style>
+<style scoped>
+
+</style>

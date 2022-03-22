@@ -43,11 +43,11 @@
               v-for="(keyRow, rowIndex) in keyboard.keyRows"
               :key="rowIndex"
             >
-              <letter
+              <key
                 v-for="(letter, index) in keyRow"
                 :letter="letter"
                 :key="index"
-              ></letter>
+              ></key>
             </v-row>
           </v-card-text>
           <v-card-actions>
