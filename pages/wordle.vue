@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-col cols="12" xs="10" sm="9" md="7" lg="5">
+    <v-col cols="12" xs="12" sm="8" md="7" lg="5" xl="3">
       <v-slide-y-reverse-transition>
         <v-card v-show="expand">
           <v-card-title class="headline">
