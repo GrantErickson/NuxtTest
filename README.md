@@ -1,5 +1,7 @@
 # NuxtTest
 
+https://witty-bay-08c87f01e.1.azurestaticapps.net/wordle
+
 ## Build Setup
 
 ```bash
