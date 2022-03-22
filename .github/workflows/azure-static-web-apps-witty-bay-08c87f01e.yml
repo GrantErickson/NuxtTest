@@ -16,8 +16,15 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v2
+        name: Get source
         with:
           submodules: true
+      - uses: actions/setup-node@v2
+        name: Install node
+        with:
+          node-version: '14'
+      - run: npm install
+        name: Run npm install
       - name: Build
         run: npm run generate
       - name: Build And Deploy
