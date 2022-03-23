@@ -1,6 +1,6 @@
 <template>
   <v-col
-    xs="1" xl="1"
+    cols="1"
     class="text-center text-h4 rounded-lg gradient my-1"
     v-on:click="clickItem()"
     :class="{

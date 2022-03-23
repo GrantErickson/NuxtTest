@@ -6,6 +6,7 @@
           <v-card-title class="headline">
             <div class="text-center">Guesses</div>
           </v-card-title>
+
           <v-card-text>
             <v-row
               dense
@@ -24,24 +25,27 @@
             </v-row>
           </v-card-text>
 
-          <v-divider>inset</v-divider>
-
+          <!-- Guess Area -->
           <v-card-text>
-            <v-row>
+            <v-row justify="center" dense>
+              <v-spacer />
               <letter
                 v-for="(letter, index) in word.letters"
                 :letter="letter"
                 :index="index"
                 :key="index"
               ></letter>
+              <v-spacer />
             </v-row>
           </v-card-text>
 
           <v-divider>inset</v-divider>
 
+          <!-- Keyboard -->
           <v-card-text>
             <v-row
               dense
+              justify="center"
               v-for="(keyRow, rowIndex) in keyboard.keyRows"
               :key="rowIndex"
             >
@@ -49,9 +53,18 @@
                 v-for="(letter, index) in keyRow"
                 :letter="letter"
                 :key="index"
+                v-on:click="keyClick"
               ></key>
             </v-row>
           </v-card-text>
+
+          <!-- Submit -->
+          <v-card-text class="text-center">
+            <v-chip :class="feedbackStyle">{{ feedbackText }}</v-chip>
+            <v-spacer class="my-1" />
+            <v-btn x-large @click="submit"> Submit </v-btn>
+          </v-card-text>
+
           <v-card-actions>
             <v-spacer />
             <v-btn color="accent" nuxt to="/"> Home </v-btn>
@@ -65,14 +78,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Word, Keyboard, KeyboardLanguage } from '@/scripts/wordle'
+import { Word, Keyboard, KeyboardLanguage, Letter } from '@/scripts/wordle'
 
 @Component
 export default class WordlePage extends Vue {
-  word: Word = new Word('.....')
+  word: Word = new Word('?????')
   guesses: Word[] = []
   keyboard: Keyboard = new Keyboard(KeyboardLanguage.English)
   expand: boolean = false
+  feedbackText: string = 'Keep Guessing'
+  feedbackStyle: string = 'info'
 
   constructor() {
     super()
@@ -82,9 +97,35 @@ export default class WordlePage extends Vue {
   }
 
   mounted() {
+    this.word.letters[0].selected = true
     setTimeout(() => {
       this.expand = true
     }, 500)
+  }
+
+  keyClick(key: Letter) {
+    console.log(key);
+    let index = 0
+    for (let letter of this.word.letters) {
+      if (letter.selected) {
+        letter.char = key.char
+        letter.selected = false
+        break
+      }
+      index++
+    }
+    if (index < 4) {
+      this.word.letters[index + 1].selected = true
+      this.feedbackText = 'Keep Guessing'
+    } else {
+      this.feedbackText = 'Submit Your Guess'
+    }
+  }
+
+  submit() {
+    this.guesses.push(this.word);
+    this.word = new Word("?????");
+    this.word.letters[0].selected = true;
   }
 }
 </script>

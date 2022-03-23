@@ -7,6 +7,7 @@
       error: letter.wrong,
       primary: letter.rightLetterWrongPlace,
       success: letter.rightLetterRightPlace,
+      selected: letter.selected,
     }"
   >
     {{ letter.char }}
@@ -29,4 +30,8 @@ export default class LetterComponent extends Vue {
 }
 </script>
 
-<style></style>
+<style>
+.v-application div.selected {
+  border: 4px solid lightblue !important;
+}
+</style>

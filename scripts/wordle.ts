@@ -28,7 +28,8 @@ export class Word {
 export class Letter {
   char: string = ''
   correctness: LetterCorrectness = LetterCorrectness.Unknown
-
+  selected: boolean = false;
+  
   constructor(letter?: string) {
     if (letter) this.char = letter
   }
