@@ -29,7 +29,7 @@ export class Letter {
   char: string = ''
   correctness: LetterCorrectness = LetterCorrectness.Unknown
   selected: boolean = false;
-  
+
   constructor(letter?: string) {
     if (letter) this.char = letter
   }
@@ -54,6 +54,7 @@ export class Keyboard {
   constructor(language: KeyboardLanguage) {
     if (language === KeyboardLanguage.English) {
       this.LoadKeys('QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM')
+      this.keyRows[this.keyRows.length-1].push(new Letter("BS"))
     }
   }
 

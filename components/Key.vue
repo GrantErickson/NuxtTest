@@ -1,7 +1,7 @@
 <template>
   <v-col
-    cols="1"
-    class="text-center text-h4 rounded-lg gradient my-1"
+    :cols="letter.char.length"
+    class="text-center text-h4 rounded-lg gradient my-1 mx-sm-1 mx-xs-0"
     v-on:click="clickItem()"
     :class="{
       info: letter.unknown,
