@@ -5,6 +5,7 @@
         <v-card v-show="expand">
           <v-card-title class="headline">
             <div class="text-center">Guesses</div>
+            <div v-show="!words.isLoaded" class="text-center">Loading...</div>
           </v-card-title>
 
           <v-card-text>
@@ -63,6 +64,7 @@
             <v-chip :class="feedbackStyle">{{ feedbackText }}</v-chip>
             <v-spacer class="my-1" />
             <v-btn x-large @click="submit"> Submit </v-btn>
+            <div>{{ this.wordToGuess }}</div>
           </v-card-text>
 
           <v-card-actions>
@@ -79,6 +81,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { Word, Keyboard, KeyboardLanguage, Letter } from '@/scripts/wordle'
+import { Words } from '@/scripts/words'
 
 @Component
 export default class WordlePage extends Vue {
@@ -88,6 +91,8 @@ export default class WordlePage extends Vue {
   expand: boolean = false
   feedbackText: string = 'Keep Guessing'
   feedbackStyle: string = 'info'
+  words: Words = Words
+  wordToGuess: string = ''
 
   constructor() {
     super()
@@ -97,6 +102,13 @@ export default class WordlePage extends Vue {
   }
 
   mounted() {
+    Words.load().then(() => {
+      console.log(Words.wordsOfLength(5)?.length)
+      this.wordToGuess =
+        Words.wordsOfLength(5)[
+          Math.floor(Math.random() * Words.wordsOfLength(5).length)
+        ]
+    })
     this.word.letters[0].selected = true
     setTimeout(() => {
       this.expand = true
@@ -104,7 +116,7 @@ export default class WordlePage extends Vue {
   }
 
   keyClick(key: Letter) {
-    console.log(key);
+    console.log(key)
     let index = 0
     for (let letter of this.word.letters) {
       if (letter.selected) {
@@ -123,9 +135,9 @@ export default class WordlePage extends Vue {
   }
 
   submit() {
-    this.guesses.push(this.word);
-    this.word = new Word("?????");
-    this.word.letters[0].selected = true;
+    this.guesses.push(this.word)
+    this.word = new Word('?????')
+    this.word.letters[0].selected = true
   }
 }
 </script>
