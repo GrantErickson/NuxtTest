@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ResolvePlugin } from 'webpack'
 
 export abstract class Words {
-  public static readonly filename = 'allwords.txt'
+  public static filename = 'allwords.txt'
   static _words: string[] | null = null
   static _isLoaded: boolean = false
 
@@ -32,5 +32,18 @@ export abstract class Words {
 
   public static wordsOfLength(length: number): string[] {
     return this.words.filter((f) => f.length === 5)
+  }
+
+  public static validWordCount(letters: string): number {
+    return this.validWords(letters).length
+  }
+
+  public static validWords(letters: string): string[] {
+    const lenth = letters.length
+    const words = this.wordsOfLength(lenth)
+    // Match all the words that have part of the word
+    const regex = new RegExp(letters.toLowerCase().replace('?', '.'), 'g')
+    const matchingWords = words.filter((word) => word.match(regex))
+    return matchingWords
   }
 }
