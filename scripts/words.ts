@@ -42,7 +42,7 @@ export abstract class Words {
     const lenth = letters.length
     const words = this.wordsOfLength(lenth)
     // Match all the words that have part of the word
-    const regex = new RegExp(letters.toLowerCase().replace('?', '.'), 'g')
+    const regex = new RegExp(letters.toLowerCase().replaceAll('?', '.'), 'g')
     const matchingWords = words.filter((word) => word.match(regex))
     return matchingWords
   }

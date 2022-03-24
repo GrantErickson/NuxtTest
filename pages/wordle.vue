@@ -120,18 +120,28 @@ export default class WordlePage extends Vue {
     let index = 0
     for (let letter of this.word.letters) {
       if (letter.selected) {
-        letter.char = key.char
-        letter.selected = false
+        if (key.char == 'BS') {
+          if (index > 0) {
+            this.word.letters[index - 1].selected = true
+            this.word.letters[index - 1].char = '?'
+            letter.selected = false
+          }
+        } else {
+          letter.char = key.char
+          letter.selected = false
+        }
         break
       }
       index++
     }
-    if (index < 4) {
+    if (index < 4 && key.char != 'BS') {
       this.word.letters[index + 1].selected = true
       this.feedbackText = 'Keep Guessing'
     } else {
       this.feedbackText = 'Submit Your Guess'
     }
+    // TODO: Replace this with something else at some point
+    this.feedbackText = `Valid Words: ${Words.validWordCount(this.word.word)}`
   }
 
   submit() {
