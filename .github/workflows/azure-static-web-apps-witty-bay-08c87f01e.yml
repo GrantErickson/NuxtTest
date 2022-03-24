@@ -25,6 +25,8 @@ jobs:
           node-version: '14'
       - run: npm install
         name: Run npm install
+      - run: npm run test
+        name: Run Jest Tests
       - name: Build
         run: npm run generate
       - name: Build And Deploy
