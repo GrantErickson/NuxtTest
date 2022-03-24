@@ -40,5 +40,3 @@ describe('Words', () => {
       expect(antWords.includes('spant')).toBeFalsy()
     })
 })
-
-describe('WordMatch', () => {})
